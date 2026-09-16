@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": "20260916-2308-9f99a51d",
+    "datetime": "2026-09-16T23:08:09.456262+08:00",
+    "title": "归去来兮辞·节选",
+    "author": "陶渊明",
+    "category": "classical_chinese",
+    "work_id": "tao-yuanming-return",
+    "text_hash": "308bf52a3df4ea93eb3f097ee4a9b9230d7108ad98d6b6ca40256cd1c84ac8fe",
+    "score": 72.4
+  }
+]

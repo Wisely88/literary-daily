@@ -1,1 +1,14 @@
-{"last_run": null, "last_success": null, "total_articles": 0, "recent_categories": [], "recent_authors": [], "recent_works": []}
+{
+  "last_run": "2026-09-16T23:08:09.456262+08:00",
+  "last_success": "2026-09-16T23:08:09.456262+08:00",
+  "total_articles": 1,
+  "recent_categories": [
+    "classical_chinese"
+  ],
+  "recent_authors": [
+    "陶渊明"
+  ],
+  "recent_works": [
+    "tao-yuanming-return"
+  ]
+}
