@@ -2,7 +2,8 @@ __pycache__/
 .pytest_cache/
 .venv/
 *.pyc
-audio/
+/audio/
 !.gitkeep
 .env
 .env.*
+!.env.example

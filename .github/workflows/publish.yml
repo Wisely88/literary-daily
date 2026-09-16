@@ -50,12 +50,17 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
 
-      - name: Install pipeline dependencies
-        run: python -m pip install -r literary-daily/requirements.txt
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Validate source
+        run: |
+          python -m compileall -q src scripts
+          python -m unittest discover -s tests -v
 
       - name: Run pipeline
-        working-directory: literary-daily
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           INPUT_CATEGORY: ${{ inputs.category }}
@@ -64,24 +69,26 @@ jobs:
           INPUT_SKIP_TTS: ${{ inputs.skip_tts }}
         run: |
           args=()
-          if [ -n "$INPUT_CATEGORY" ]; then args+=(--category "$INPUT_CATEGORY"); fi
-          if [ "$INPUT_FORCE" = "true" ]; then args+=(--force); fi
-          if [ "$INPUT_DRY_RUN" = "true" ]; then args+=(--dry-run); fi
-          if [ "$INPUT_SKIP_TTS" = "true" ]; then args+=(--skip-tts); fi
+          if [ -n "$INPUT_CATEGORY" ]; then
+            args+=(--category "$INPUT_CATEGORY")
+          fi
+          if [ "$INPUT_FORCE" = "true" ]; then
+            args+=(--force)
+          fi
+          if [ "$INPUT_DRY_RUN" = "true" ]; then
+            args+=(--dry-run)
+          fi
+          if [ "$INPUT_SKIP_TTS" = "true" ]; then
+            args+=(--skip-tts)
+          fi
           python -m src.main "${args[@]}"
 
-      - name: Validate pipeline
-        working-directory: literary-daily
-        run: |
-          python -m compileall -q src scripts
-          python -m unittest discover -s tests -v
-
       - name: Commit generated data
-        if: ${{ inputs.dry_run != true }}
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run != true }}
         run: |
           git config user.name "literary-daily[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add literary-daily/data literary-daily/site
+          git add data site
           if git diff --cached --quiet; then
             echo "No generated changes to commit"
           else
@@ -90,19 +97,18 @@ jobs:
           fi
 
       - name: Upload Pages artifact
-        if: ${{ inputs.dry_run != true }}
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run != true }}
         uses: actions/upload-pages-artifact@v3
         with:
-          path: literary-daily/site
+          path: site
 
       - name: Deploy to GitHub Pages
-        if: ${{ inputs.dry_run != true }}
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run != true }}
         id: deployment
         uses: actions/deploy-pages@v4
 
       - name: Notify after successful deployment
-        if: ${{ success() && inputs.dry_run != true }}
-        working-directory: literary-daily
+        if: ${{ success() && (github.event_name != 'workflow_dispatch' || inputs.dry_run != true) }}
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
