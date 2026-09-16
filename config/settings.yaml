@@ -1,0 +1,35 @@
+{
+  "project": {"name": "每日文学", "language": "zh-CN", "timezone": "Asia/Shanghai"},
+  "schedule": {"slots": ["08:30", "12:30", "18:30", "22:30"]},
+  "selection": {
+    "candidate_target": 30,
+    "candidate_minimum": 10,
+    "min_chars": 300,
+    "preferred_chars_min": 800,
+    "preferred_chars_max": 3500,
+    "max_chars": 6000,
+    "history_dedupe_days": 365,
+    "same_author_cooldown_days": 30,
+    "same_work_cooldown_days": 365
+  },
+  "content": {"allow_excerpt": true, "excerpt": {"preferred_chars_min": 1000, "preferred_chars_max": 3000}},
+  "ai": {"model": "gemini-2.5-flash", "temperature": 0.3, "max_candidates": 15},
+  "tts": {
+    "enabled": true,
+    "model": "gemini-2.5-flash-preview-tts",
+    "voice": "Sulafat",
+    "format": "mp3",
+    "retain_days": 60
+  },
+  "site": {"archive_size": 500, "base_url": "https://wisely88.github.io/literary-daily"},
+  "notification": {
+    "enabled": true,
+    "providers": ["pushplus", "telegram"],
+    "pushplus": {"endpoint": "https://www.pushplus.plus/send", "template": "markdown"}
+  },
+  "sources": {
+    "local_library": {"enabled": true, "path": "library", "authors_path": "library/authors"},
+    "rss": {"enabled": false, "urls": []},
+    "webpages": {"enabled": false, "urls": []}
+  }
+}

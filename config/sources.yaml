@@ -1,0 +1,5 @@
+{
+  "local_library": {"enabled": true, "path": "library", "authors_path": "library/authors"},
+  "rss": {"enabled": false, "urls": []},
+  "webpages": {"enabled": false, "urls": []}
+}

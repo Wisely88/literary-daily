@@ -1,0 +1,11 @@
+{
+  "classical_chinese": {"name": "古典文学", "target_weight": 12},
+  "modern_chinese": {"name": "中国现代文学", "target_weight": 14},
+  "poetry": {"name": "诗歌", "target_weight": 12},
+  "foreign_literature": {"name": "外国文学", "target_weight": 18},
+  "history": {"name": "历史", "target_weight": 12},
+  "documentary": {"name": "纪实文学", "target_weight": 10},
+  "biography": {"name": "人物传记", "target_weight": 8},
+  "philosophy": {"name": "哲思随笔", "target_weight": 8},
+  "diary_letter": {"name": "日记书信", "target_weight": 6}
+}
